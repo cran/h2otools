@@ -1,7 +1,7 @@
 Package: h2otools
 Type: Package
 Title: Machine Learning Model Evaluation for 'h2o' Package
-Version: 0.0.1
+Version: 0.1
 Authors@R: 
     person("E. F. Haghish",
            role = c("aut", "cre", "cph"),
@@ -20,8 +20,8 @@ URL: https://github.com/haghish/h2otools,
         https://www.sv.uio.no/psi/english/people/aca/haghish/
 BugReports: https://github.com/haghish/h2otools/issues
 NeedsCompilation: no
-Packaged: 2022-09-06 12:01:11 UTC; OJO
+Packaged: 2022-10-02 08:50:53 UTC; OJO
 Author: E. F. Haghish [aut, cre, cph]
 Maintainer: E. F. Haghish <haghish@uio.no>
 Repository: CRAN
-Date/Publication: 2022-09-07 18:00:05 UTC
+Date/Publication: 2022-10-02 16:10:02 UTC

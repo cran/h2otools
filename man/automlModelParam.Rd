@@ -16,10 +16,10 @@ a dataframe of models' parameters
 Extracts models' parameters from AutoML grid
 }
 \examples{
-\donttest{
+\dontrun{
 if(requireNamespace("h2o")) {
   library(h2o)
-  h2o.init(ignore_config = TRUE)
+  h2o.init(ignore_config = TRUE, nthreads = 2, bind_to_localhost = FALSE, insecure = TRUE)
   prostate_path <- system.file("extdata", "prostate.csv", package = "h2o")
   prostate <- h2o.importFile(path = prostate_path, header = TRUE)
   y <- "CAPSULE"
