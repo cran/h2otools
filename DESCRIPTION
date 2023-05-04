@@ -1,7 +1,7 @@
 Package: h2otools
 Type: Package
 Title: Machine Learning Model Evaluation for 'h2o' Package
-Version: 0.1
+Version: 0.3
 Authors@R: 
     person("E. F. Haghish",
            role = c("aut", "cre", "cph"),
@@ -14,14 +14,14 @@ Description: Several functions are provided that simplify using 'h2o'
              about 'h2o' package see <https://h2o.ai/>.
 License: MIT + file LICENSE
 Encoding: UTF-8
-Imports: h2o (>= 3.34.0.0), curl
+Imports: h2o (>= 3.34.0.0), curl, boot
 RoxygenNote: 7.2.1
 URL: https://github.com/haghish/h2otools,
-        https://www.sv.uio.no/psi/english/people/aca/haghish/
+        https://www.sv.uio.no/psi/english/people/academic/haghish/
 BugReports: https://github.com/haghish/h2otools/issues
 NeedsCompilation: no
-Packaged: 2022-10-02 08:50:53 UTC; OJO
+Packaged: 2023-05-04 19:46:22 UTC; U-Shaped-Valley
 Author: E. F. Haghish [aut, cre, cph]
 Maintainer: E. F. Haghish <haghish@uio.no>
 Repository: CRAN
-Date/Publication: 2022-10-02 16:10:02 UTC
+Date/Publication: 2023-05-04 22:40:02 UTC

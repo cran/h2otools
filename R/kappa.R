@@ -1,11 +1,10 @@
-#' @title F-Measure
-#' @description Calculates F-Measure for any given value of Beta
+#' @title kappa
+#' @description Calculates kappa for all thresholds
 #' @importFrom utils setTxtProgressBar txtProgressBar
 #' @importFrom h2o h2o.precision h2o.recall
 #' @importFrom curl curl
 #' @param perf a h2o object of class \code{"H2OBinomialMetrics"} which is provided
 #'             by 'h2o.performance' function.
-#' @param beta numeric, specifying beta value, which must be higher than zero
 #' @param max logical. default is FALSE. if TRUE, instead of providing the F-Measure
 #'            for all the thresholds, the highest F-Measure is reported.
 #' @return a matrix of F-Measures for different thresholds or the highest F-Measure value
@@ -26,28 +25,33 @@
 #' perf <- h2o.performance(aml@leader, xval = TRUE)
 #'
 #' # evaluate F-Measure for a Beta = 3
-#' Fmeasure(perf, beta = 3, max = TRUE)
-#'
-#' # evaluate F-Measure for a Beta = 1.5
-#' Fmeasure(perf, beta = 1.5, max = TRUE)
-#'
-#' # evaluate F-Measure for a Beta = 4
-#' Fmeasure(perf, beta = 4, max = TRUE)
-#'
+#' kappa(perf, max = TRUE)
 #' }
 #' @export
 
-Fmeasure <- function(perf, beta = 1, max = FALSE) {
-  threshold <- h2o::h2o.precision(perf)[,1]
-  precision <- h2o::h2o.precision(perf)[,2]
-  recall    <- h2o::h2o.recall(perf)[,2]
-  f <- ((1+beta^2)*(precision*recall)) / ((beta^2*precision)+recall)
+kappa <- function(perf, max = FALSE) {
+
+  kp <- function(TP, FP, TN, FN) {
+    total <- TP + FN + FP + TN
+    true <- ((TP + FN) * (TP + FP)) / total
+    false <- ((FP + TN) * (FN + TN)) / total
+    expected     <- (true + false) / total
+    observed     <- (TP + TN) / total
+    res <- matrix((observed - expected) / (1 - expected), ncol = 1)
+    colnames(res) <- "Kappa"
+    return(res)
+  }
+
+  matrix <- as.data.frame(perf@metrics$thresholds_and_metric_scores)
+  kappa <- kp(TP=matrix$tps, FP=matrix$fps, TN=matrix$tns, FN=matrix$fns)
+  threshold <- matrix$threshold
+
   if (max) {
-    return(max(f, na.rm = TRUE))
+    return(max(kappa, na.rm = TRUE))
   }
   else {
-    result <- cbind(threshold, f)
-    colnames(result) <- c("threshold", paste0("F",beta))
+    result <- cbind(threshold, kappa)
+    colnames(result) <- c("threshold", "kappa")
     return(result)
   }
 }
